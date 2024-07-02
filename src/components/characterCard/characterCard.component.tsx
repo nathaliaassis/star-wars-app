@@ -1,10 +1,11 @@
+import { View } from "react-native";
 import { IPeople } from "../../interfaces/IPeople";
 import { Container, Row, Info, Title } from "./characterCard.styles";
 import { FontAwesome6 as Icon } from "@expo/vector-icons";
 
 const CharacterCard = ({ character }: { character: IPeople }) => (
   <Container onPress={() => {}}>
-    <>
+    <View>
       <Row>
         <Title>{character.name}</Title>
 
@@ -16,7 +17,7 @@ const CharacterCard = ({ character }: { character: IPeople }) => (
         <Info>Height: {character.height}</Info>
         <Info>Mass: {character.mass}</Info>
       </Row>
-    </>
+    </View>
   </Container>
 );
 
