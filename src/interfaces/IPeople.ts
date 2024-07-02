@@ -21,4 +21,5 @@ export interface IPeople {
   starships: string[] | IStarship[];
   url: string;
   vehicles: string[] | IVehicle[];
+  isStarred?: boolean;
 }

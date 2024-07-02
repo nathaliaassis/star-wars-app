@@ -23,12 +23,10 @@ const Details: React.FC<Props> = ({ route }) => {
     selectedPerson,
     setSelectedPersonFilms,
     selectedPersonFilms,
+    handleStarAPerson,
   } = usePeopleStore();
 
-  const [isStarred, setIsStarred] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const handleOnPressStar = () => setIsStarred(!isStarred);
 
   const fetchPerson = useCallback(async () => {
     const id = url.split("/people/")[1];
@@ -63,7 +61,15 @@ const Details: React.FC<Props> = ({ route }) => {
     fetchPerson();
   }, [fetchPerson]);
 
-  if (isLoading) return <Loading />;
+  const handleOnPressStar = useCallback(() => {
+    if (selectedPerson) {
+      const { url, isStarred } = selectedPerson;
+
+      handleStarAPerson(url, !isStarred);
+    }
+  }, [selectedPerson]);
+
+  if (!selectedPerson || isLoading) return <Loading />;
 
   return (
     <Container>
@@ -75,7 +81,12 @@ const Details: React.FC<Props> = ({ route }) => {
         <Title>{selectedPerson?.name}</Title>
 
         <TouchableOpacity onPress={handleOnPressStar}>
-          <Icon name="star" size={24} color="#000000" solid={isStarred} />
+          <Icon
+            name="star"
+            size={24}
+            color="#000000"
+            solid={selectedPerson.isStarred}
+          />
         </TouchableOpacity>
       </Header>
       <Tabs />

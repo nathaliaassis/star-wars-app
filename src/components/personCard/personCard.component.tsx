@@ -15,7 +15,12 @@ const PersonCard = ({ person, onPress }: IPersonCard) => {
       <View>
         <Row>
           <Title>{person.name}</Title>
-          <Icon name={"star"} size={20} color="#000000" />
+          <Icon
+            name={"star"}
+            size={20}
+            color="#000000"
+            solid={person.isStarred}
+          />
         </Row>
         <Info>Specie: {person.gender}</Info>
         <Row>
