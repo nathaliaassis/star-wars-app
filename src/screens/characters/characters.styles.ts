@@ -6,4 +6,19 @@ const Container = styled.SafeAreaView`
   padding: 8px 24px 24px;
 `;
 
-export { Container };
+const Logo = styled.Image`
+  background-size: contain;
+  background-repeat: no-repeat;
+  align-self: "center";
+  height: 60px;
+  width: 135px;
+  margin: 16px auto;
+`;
+
+const LoadingContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export { Container, Logo, LoadingContainer };
