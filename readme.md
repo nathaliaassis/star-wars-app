@@ -8,8 +8,8 @@ As informações lidas deverão ser exibidas considerando as seguintes caracter�
 Funcionalidades obrigatórias:
 [x] Listagem dos principais personagens de toda a saga através de uma lista (considerar o uso do infinite scroll);
 Possibilitar ao usuário tocar em um item da lista realizando as seguintes ações:
-[] exibir os detalhes do personagem selecionado disponíveis (/people/id/);
-[] juntamente com os detalhes do personagem deve ser exibido uma lista com os nomes dos filmes nos quais ele apareceu.
+[x] exibir os detalhes do personagem selecionado disponíveis (/people/id/);
+[x] juntamente com os detalhes do personagem deve ser exibido uma lista com os nomes dos filmes nos quais ele apareceu.
 [] Possibilitar favoritar os personagens através de um ícone (uma estrela, por exemplo) e exibir na listagem essa opção quando marcada.
 
 Tecnologias Desejáveis (nice to have)
