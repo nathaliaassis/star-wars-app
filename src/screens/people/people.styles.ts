@@ -15,10 +15,4 @@ const Logo = styled.Image`
   margin: 16px auto;
 `;
 
-const LoadingContainer = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-export { Container, Logo, LoadingContainer };
+export { Container, Logo };

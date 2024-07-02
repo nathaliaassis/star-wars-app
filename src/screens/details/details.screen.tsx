@@ -10,15 +10,23 @@ import { getFilmById } from "../../services/film/film.service";
 import Tabs from "./tabs/tabs.component";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { usePeopleStore } from "../../providers/usePeopleStore";
+import Loading from "../../components/loading/loading.component";
 
 type Props = BottomTabScreenProps<RootTabParamList, "Details">;
 
 const Details: React.FC<Props> = ({ route }) => {
   const { url } = route.params;
   const { goBack } = useNavigation();
-  const [character, setCharacter] = useState<IPeople>();
-  const [films, setFilms] = useState<IFilm[]>([]);
+  const {
+    setSelectedPerson,
+    selectedPerson,
+    setSelectedPersonFilms,
+    selectedPersonFilms,
+  } = usePeopleStore();
+
   const [isStarred, setIsStarred] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleOnPressStar = () => setIsStarred(!isStarred);
 
@@ -27,11 +35,11 @@ const Details: React.FC<Props> = ({ route }) => {
 
     const response = await getPeopleById(id);
 
-    setCharacter(response);
+    setSelectedPerson(response);
 
     const filmsURLs = response.films as string[];
 
-    const filmsList = filmsURLs.map(async (url: string) => {
+    const filmsPromises = filmsURLs.map(async (url: string) => {
       const id = url.split("/films/")[1];
 
       const filmData = await getFilmById(id);
@@ -39,29 +47,38 @@ const Details: React.FC<Props> = ({ route }) => {
       return filmData;
     });
 
-    const filmsData = await Promise.all(filmsList);
+    const filmList = await Promise.all(filmsPromises);
 
-    setFilms(filmsData);
+    setSelectedPersonFilms(filmList);
   }, [url]);
 
   useEffect(() => {
+    if (selectedPerson && selectedPersonFilms.length) {
+      setIsLoading(false);
+    }
+  }, [selectedPerson, selectedPersonFilms]);
+
+  useEffect(() => {
+    setIsLoading(true);
     fetchPerson();
   }, [fetchPerson]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <Container>
       <Header>
-        <TouchableOpacity data-testid="teste" onPress={goBack}>
+        <TouchableOpacity onPress={goBack}>
           <Icon name="chevron-left" size={24} color="#000000" />
         </TouchableOpacity>
 
-        <Title>{character?.name}</Title>
+        <Title>{selectedPerson?.name}</Title>
 
         <TouchableOpacity onPress={handleOnPressStar}>
           <Icon name="star" size={24} color="#000000" solid={isStarred} />
         </TouchableOpacity>
       </Header>
-      <Tabs films={films} character={character as IPeople} />
+      <Tabs />
     </Container>
   );
 };

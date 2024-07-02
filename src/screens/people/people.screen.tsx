@@ -1,34 +1,32 @@
-import { Container, LoadingContainer, Logo } from "./characters.styles";
+import { Container, Logo } from "./people.styles";
 import { useCallback, useEffect, useState } from "react";
 import { getPeople } from "../../services/people/people.service";
-import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
-import { IPeople } from "../../interfaces/IPeople";
-import CharacterCard from "../../components/characterCard/characterCard.component";
+import { ActivityIndicator, FlatList } from "react-native";
 import { RootTabParamList } from "../../types";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
-
 import logoImg from "../../assets/logo_black.png";
 import { api } from "../../config/api";
+import { usePeopleStore } from "../../providers/usePeopleStore";
+import PersonCard from "../../components/personCard/personCard.component";
+import Loading from "../../components/loading/loading.component";
 
-interface ICharacters {
+interface IPeopleScreen {
   navigation: NativeStackNavigationProp<RootTabParamList>;
 }
 
-const Characters: React.FC<ICharacters> = ({ navigation }) => {
-  const [characters, setCharacters] = useState<IPeople[]>([]);
+const People: React.FC<IPeopleScreen> = ({ navigation }) => {
+  const { setPeopleList, peopleList } = usePeopleStore();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [nextPageURL, setNextPageURL] = useState<string>("");
   const [lastPageCalled, setLastPageCalled] = useState<string>("");
   const [maxPeople, setMaxPeople] = useState<number>(0);
+  const [listIsFullyLoaded, setListIsFullyLoaded] = useState<boolean>(false);
 
   const renderLoading = () => {
     if (!isLoading) return;
-    return (
-      <LoadingContainer>
-        <ActivityIndicator size="large" color="#000000" />
-      </LoadingContainer>
-    );
+    return <Loading />;
   };
 
   const getPeopleList = useCallback(async () => {
@@ -37,7 +35,7 @@ const Characters: React.FC<ICharacters> = ({ navigation }) => {
     const data = await getPeople();
 
     if (data) {
-      setCharacters((prevCharacters) => [...prevCharacters, ...data.results]);
+      setPeopleList(data.results);
       setNextPageURL(data.next);
       setMaxPeople(data.count);
     }
@@ -46,11 +44,7 @@ const Characters: React.FC<ICharacters> = ({ navigation }) => {
   }, [getPeople]);
 
   const handleRefresh = useCallback(async () => {
-    if (
-      nextPageURL &&
-      lastPageCalled !== nextPageURL &&
-      characters.length < maxPeople
-    ) {
+    if (nextPageURL && lastPageCalled !== nextPageURL && !listIsFullyLoaded) {
       setIsRefreshing(true);
       setLastPageCalled(nextPageURL);
 
@@ -58,31 +52,33 @@ const Characters: React.FC<ICharacters> = ({ navigation }) => {
       const { data } = response;
 
       if (data) {
-        if (data.results) {
-          setCharacters((prevCharacters) => [
-            ...prevCharacters,
-            ...data.results,
-          ]);
-        }
-        if (data.next) setNextPageURL(data.next);
-
+        setPeopleList(data.results);
+        setNextPageURL(data.next);
         setIsRefreshing(false);
       }
     }
-  }, [nextPageURL, lastPageCalled, maxPeople]);
+  }, [nextPageURL, lastPageCalled, maxPeople, listIsFullyLoaded]);
 
   useEffect(() => {
-    getPeopleList();
-  }, [getPeopleList]);
+    if (!listIsFullyLoaded) getPeopleList();
+  }, [getPeopleList, listIsFullyLoaded]);
+
+  useEffect(() => {
+    if (peopleList.length === maxPeople) {
+      setListIsFullyLoaded(true);
+    } else {
+      setListIsFullyLoaded(false);
+    }
+  }, [peopleList, maxPeople]);
 
   return (
     <Container>
       <Logo source={logoImg} />
       <FlatList
-        data={characters}
+        data={peopleList}
         renderItem={({ item }) => (
-          <CharacterCard
-            character={item}
+          <PersonCard
+            person={item}
             onPress={() => navigation.navigate("Details", { url: item.url })}
           />
         )}
@@ -97,4 +93,4 @@ const Characters: React.FC<ICharacters> = ({ navigation }) => {
   );
 };
 
-export default Characters;
+export default People;

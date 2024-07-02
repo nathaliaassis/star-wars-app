@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome6 as Icon } from "@expo/vector-icons";
 import Starreds from "./src/screens/starreds/starreds.screen";
 import Details from "./src/screens/details/details.screen";
-import Characters from "./src/screens/characters/characters.screen";
+import People from "./src/screens/people/people.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,11 +20,11 @@ const App = () => {
             backgroundColor: "#0c0c0c",
           },
         }}
-        initialRouteName="Characters"
+        initialRouteName="People"
       >
         <Tab.Screen
-          name="Characters"
-          component={Characters}
+          name="People"
+          component={People}
           options={{
             tabBarIcon: ({ color }) => (
               <Icon name="jedi" size={24} color={color} />

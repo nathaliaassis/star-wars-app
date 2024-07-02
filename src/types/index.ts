@@ -1,5 +1,5 @@
 export type RootTabParamList = {
-  Characters: undefined;
+  People: undefined;
   Details: { url: string };
   Starreds: undefined;
 };

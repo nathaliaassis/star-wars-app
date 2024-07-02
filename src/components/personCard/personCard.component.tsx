@@ -1,30 +1,30 @@
 import { GestureResponderEvent, View } from "react-native";
 import { IPeople } from "../../interfaces/IPeople";
-import { Container, Row, Info, Title } from "./characterCard.styles";
+import { Container, Row, Info, Title } from "./personCard.styles";
 import { FontAwesome6 as Icon } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-interface ICharacterCard {
-  character: IPeople;
+interface IPersonCard {
+  person: IPeople;
   onPress: (event: GestureResponderEvent) => void;
 }
 
-const CharacterCard = ({ character, onPress }: ICharacterCard) => {
+const PersonCard = ({ person, onPress }: IPersonCard) => {
   return (
     <Container onPress={onPress}>
       <View>
         <Row>
-          <Title>{character.name}</Title>
+          <Title>{person.name}</Title>
           <Icon name={"star"} size={20} color="#000000" />
         </Row>
-        <Info>Specie: {character.gender}</Info>
+        <Info>Specie: {person.gender}</Info>
         <Row>
-          <Info>Height: {character.height}</Info>
-          <Info>Mass: {character.mass}</Info>
+          <Info>Height: {person.height}</Info>
+          <Info>Mass: {person.mass}</Info>
         </Row>
       </View>
     </Container>
   );
 };
 
-export default CharacterCard;
+export default PersonCard;
