@@ -1,11 +1,17 @@
-import { Container } from "./home.styles";
+import { Container } from "./characters.styles";
 import { useCallback, useEffect, useState } from "react";
 import { getPeople } from "../../services/people/people.service";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { IPeople } from "../../interfaces/IPeople";
 import CharacterCard from "../../components/characterCard/characterCard.component";
+import { RootTabParamList } from "../../types";
+import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 
-const Home = () => {
+interface ICharacters {
+  navigation: NativeStackNavigationProp<RootTabParamList>;
+}
+
+const Characters: React.FC<ICharacters> = ({ navigation }) => {
   const [characters, setCharacters] = useState<IPeople[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -36,7 +42,12 @@ const Home = () => {
     <Container>
       <FlatList
         data={characters}
-        renderItem={({ item }) => <CharacterCard character={item} />}
+        renderItem={({ item }) => (
+          <CharacterCard
+            character={item}
+            onPress={() => navigation.navigate("Details", { url: item.url })}
+          />
+        )}
         keyExtractor={(item, idx) => item.name + idx + 1}
         onEndReached={fetchCharacters}
         onEndReachedThreshold={0.5}
@@ -46,4 +57,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Characters;

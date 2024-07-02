@@ -1,9 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "./src/screens/home/home.screen";
 import { FontAwesome6 as Icon } from "@expo/vector-icons";
+import Starreds from "./src/screens/starreds/starreds.screen";
+import Details from "./src/screens/details/details.screen";
+import Characters from "./src/screens/characters/characters.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,11 +20,11 @@ const App = () => {
             backgroundColor: "#0c0c0c",
           },
         }}
-        initialRouteName="Home"
+        initialRouteName="Characters"
       >
         <Tab.Screen
           name="Characters"
-          component={Home}
+          component={Characters}
           options={{
             tabBarIcon: ({ color }) => (
               <Icon name="jedi" size={24} color={color} />
@@ -34,11 +34,18 @@ const App = () => {
 
         <Tab.Screen
           name="Starreds"
-          component={Home}
+          component={Starreds}
           options={{
             tabBarIcon: ({ color }) => (
               <Icon name="star" size={24} color={color} />
             ),
+          }}
+        />
+        <Tab.Screen
+          name="Details"
+          component={Details}
+          options={{
+            tabBarButton: () => null,
           }}
         />
       </Tab.Navigator>
