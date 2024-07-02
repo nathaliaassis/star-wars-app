@@ -14,10 +14,4 @@ const Title = styled.Text`
   align-self: center;
 `;
 
-const SubTitle = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 16px;
-`;
-
-export { Container, SubTitle, Title };
+export { Container, Title };

@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Container, Title, SubTitle } from "./details.styles";
+import { Container, Title } from "./details.styles";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { RootTabParamList } from "../../types";
 import { IPeople } from "../../interfaces/IPeople";
 import { getPeopleById } from "../../services/people/people.service";
-import { FlatList, Text, View } from "react-native";
+import { View } from "react-native";
 import { IFilm } from "../../interfaces/IFilm";
 import { getFilmById } from "../../services/film/film.service";
 import Tabs from "./tabs/tabs.component";

@@ -15,8 +15,8 @@ const Tabs = ({ films, character }: ITabs) => {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "films", title: "Films" },
     { key: "info", title: "Info" },
+    { key: "films", title: "Films" },
   ]);
 
   const InfoRoute = () => (
@@ -34,7 +34,19 @@ const Tabs = ({ films, character }: ITabs) => {
     <View>
       <FlatList
         data={films}
-        renderItem={({ item }) => <Text>{item.title}</Text>}
+        renderItem={({ item }) => (
+          <Text
+            style={{
+              fontSize: 18,
+              paddingBottom: 8,
+              borderBottomWidth: 1,
+              borderBottomColor: "#00000",
+              marginBottom: 8,
+            }}
+          >
+            {item.title}
+          </Text>
+        )}
         keyExtractor={(item) => item.episode_id + item.release_date}
         onEndReachedThreshold={0.5}
       />
@@ -42,8 +54,8 @@ const Tabs = ({ films, character }: ITabs) => {
   );
 
   const renderScene = SceneMap({
-    films: FilmsRoute,
     info: InfoRoute,
+    films: FilmsRoute,
   });
 
   return (
