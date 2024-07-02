@@ -15,9 +15,7 @@ const CharacterCard = ({ character, onPress }: ICharacterCard) => {
       <View>
         <Row>
           <Title>{character.name}</Title>
-
-          {/* // TODO: Show only when it be a starred character
-          <Icon name={"star"} size={20} color="#0c0c0c" /> */}
+          <Icon name={"star"} size={20} color="#000000" />
         </Row>
         <Info>Specie: {character.gender}</Info>
         <Row>
