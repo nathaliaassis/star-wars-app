@@ -1,7 +1,7 @@
 import { useWindowDimensions } from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
 import { StyledTabBar } from "./tabs.styles";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InfoTab from "./infoTab/infoTab.component";
 import FilmsTab from "./filmsTab/filmsTab.component";
 import { usePeopleStore } from "../../../providers/usePeopleStore";

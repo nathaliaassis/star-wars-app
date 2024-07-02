@@ -2,7 +2,6 @@ import { GestureResponderEvent, View } from "react-native";
 import { IPeople } from "../../interfaces/IPeople";
 import { Container, Row, Info, Title } from "./personCard.styles";
 import { FontAwesome6 as Icon } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 
 interface IPersonCard {
   person: IPeople;

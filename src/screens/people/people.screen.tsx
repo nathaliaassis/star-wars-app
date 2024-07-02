@@ -1,7 +1,7 @@
 import { Container, Logo } from "./people.styles";
 import { useCallback, useEffect, useState } from "react";
 import { getPeople } from "../../services/people/people.service";
-import { ActivityIndicator, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import { RootTabParamList } from "../../types";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 import logoImg from "../../assets/logo_black.png";

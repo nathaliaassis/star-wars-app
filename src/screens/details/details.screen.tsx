@@ -2,9 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Container, Header, Title } from "./details.styles";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { RootTabParamList } from "../../types";
-import { IPeople } from "../../interfaces/IPeople";
 import { getPeopleById } from "../../services/people/people.service";
-import { IFilm } from "../../interfaces/IFilm";
 import { FontAwesome6 as Icon } from "@expo/vector-icons";
 import { getFilmById } from "../../services/film/film.service";
 import Tabs from "./tabs/tabs.component";
@@ -50,6 +48,14 @@ const Details: React.FC<Props> = ({ route }) => {
     setSelectedPersonFilms(filmList);
   }, [url]);
 
+  const handleOnPressStar = useCallback(() => {
+    if (selectedPerson) {
+      const { url, isStarred } = selectedPerson;
+
+      handleStarAPerson(url, !isStarred);
+    }
+  }, [selectedPerson]);
+
   useEffect(() => {
     if (selectedPerson && selectedPersonFilms.length) {
       setIsLoading(false);
@@ -60,14 +66,6 @@ const Details: React.FC<Props> = ({ route }) => {
     setIsLoading(true);
     fetchPerson();
   }, [fetchPerson]);
-
-  const handleOnPressStar = useCallback(() => {
-    if (selectedPerson) {
-      const { url, isStarred } = selectedPerson;
-
-      handleStarAPerson(url, !isStarred);
-    }
-  }, [selectedPerson]);
 
   if (!selectedPerson || isLoading) return <Loading />;
 
