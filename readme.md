@@ -6,7 +6,7 @@ Criação de um aplicativo (em React Native) capaz de listar personagens dos fil
 As informações lidas deverão ser exibidas considerando as seguintes características abaixo:
 
 Funcionalidades obrigatórias:
-[] Listagem dos principais personagens de toda a saga através de uma lista (considerar o uso do infinite scroll);
+[x] Listagem dos principais personagens de toda a saga através de uma lista (considerar o uso do infinite scroll);
 [] Possibilitar ao usuário tocar em um item da lista realizando as seguintes ações:
 [] exibir os detalhes do personagem selecionado disponíveis (/people/id/);
 [] juntamente com os detalhes do personagem deve ser exibido uma lista com os nomes dos filmes nos quais ele apareceu.
@@ -19,11 +19,11 @@ Tecnologias Desejáveis (nice to have)
 [] Hooks
 
 Premissas
-[] Você tem liberdade para decidir:
+Você tem liberdade para decidir:
 [] Quais bibliotecas e ferramentas irá utilizar.
 [] A melhor arquitetura para seu app.
 
-[] O que iremos avaliar
+O que iremos avaliar
 [] Qualidade do código.
 [] Bom uso do Typescript.
 [] Uso de padrões de projeto.
