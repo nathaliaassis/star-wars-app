@@ -4,7 +4,11 @@ import { LoadingContainer } from "./loading.styles";
 const Loading = () => {
   return (
     <LoadingContainer>
-      <ActivityIndicator size="large" color="#000000" />
+      <ActivityIndicator
+        testID="loading-component"
+        size="large"
+        color="#000000"
+      />
     </LoadingContainer>
   );
 };

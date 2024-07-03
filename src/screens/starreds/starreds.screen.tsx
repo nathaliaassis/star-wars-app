@@ -1,5 +1,4 @@
 import { FlatList } from "react-native";
-import React from "react";
 import { Container, Header } from "./starreds.styles";
 import { usePeopleStore } from "../../providers/usePeopleStore";
 import PersonCard from "../../components/personCard/personCard.component";

@@ -14,14 +14,17 @@ const PersonCard = ({ person, onPress }: IPersonCard) => {
       <View>
         <Row>
           <Title>{person.name}</Title>
-          <Icon
-            name={"star"}
-            size={20}
-            color="#000000"
-            solid={person.isStarred}
-          />
+          {person.isStarred && (
+            <Icon
+              name={"star"}
+              size={20}
+              color="#000000"
+              solid
+              data-testid="star-icon"
+            />
+          )}
         </Row>
-        <Info>Specie: {person.gender}</Info>
+        <Info>Gender: {person.gender}</Info>
         <Row>
           <Info>Height: {person.height}</Info>
           <Info>Mass: {person.mass}</Info>
