@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 
 const Container = styled.SafeAreaView`
   margin-top: ${StatusBar.currentHeight ? StatusBar.currentHeight + "px" : 0};
-  padding: 8px 24px 100px;
+  padding: 0px 24px 100px;
 `;
 
 const Logo = styled.Image`

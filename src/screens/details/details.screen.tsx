@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Container, Header, Title } from "./details.styles";
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { DetailsScreenProps, RootTabParamList } from "../../types";
-import { getPeopleById } from "../../services/people/people.service";
+import { DetailsScreenProps } from "../../types";
 import { FontAwesome6 as Icon } from "@expo/vector-icons";
 import { getFilmById } from "../../services/film/film.service";
 import Tabs from "./tabs/tabs.component";
@@ -16,6 +14,7 @@ const Details: React.FC<DetailsScreenProps> = ({ route, navigation }) => {
   const {
     setSelectedPerson,
     selectedPerson,
+    peopleList,
     setSelectedPersonFilms,
     selectedPersonFilms,
     handleStarAPerson,
@@ -24,24 +23,21 @@ const Details: React.FC<DetailsScreenProps> = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchPerson = useCallback(async () => {
-    const id = url.split("/people/")[1];
+    setIsLoading(true);
+    const person = peopleList.find((people) => people.url === url);
 
-    const response = await getPeopleById(id);
+    if (!person) return;
+    setSelectedPerson(person);
 
-    setSelectedPerson(response);
-
-    const filmsURLs = response.films as string[];
-
+    const filmsURLs = person?.films as string[];
     const filmsPromises = filmsURLs.map(async (url: string) => {
       const id = url.split("/films/")[1];
-
       const filmData = await getFilmById(id);
 
       return filmData;
     });
 
     const filmList = await Promise.all(filmsPromises);
-
     setSelectedPersonFilms(filmList);
   }, [url]);
 
@@ -60,9 +56,16 @@ const Details: React.FC<DetailsScreenProps> = ({ route, navigation }) => {
   }, [selectedPerson, selectedPersonFilms]);
 
   useEffect(() => {
-    setIsLoading(true);
     fetchPerson();
   }, [fetchPerson]);
+
+  useEffect(() => {
+    return () => {
+      setIsLoading(true);
+      setSelectedPerson(null);
+      setSelectedPersonFilms([]);
+    };
+  }, []);
 
   if (!selectedPerson || isLoading) return <Loading />;
 

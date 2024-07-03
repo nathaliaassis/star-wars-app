@@ -11,9 +11,3 @@ export const getPeople = async (): Promise<IGetPeopleResponse> => {
 
   return response.data;
 };
-
-export const getPeopleById = async (id: string): Promise<IPeople> => {
-  const response = await api.get(`/people/${id}`);
-
-  return response.data;
-};
