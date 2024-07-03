@@ -9,7 +9,6 @@ interface IUsePeopleStore {
   selectedPersonFilms: IFilm[];
 
   setPeopleList: (people: IPeople[]) => void;
-  setStarredList: (people: IPeople[]) => void;
   setSelectedPerson: (person: IPeople | null) => void;
   setSelectedPersonFilms: (films: IFilm[]) => void;
   handleStarAPerson: (personURL: string, isStarred: boolean) => void;
@@ -40,12 +39,6 @@ const usePeopleStore = create<IUsePeopleStore>((set, get) => ({
 
     set({ peopleList: newPeopleList });
   },
-  setStarredList: () => {
-    const { peopleList } = get();
-    const filterdByStarred = peopleList.filter((person) => person.isStarred);
-
-    set({ starredList: filterdByStarred });
-  },
   setSelectedPerson: (person) => set({ selectedPerson: person }),
   setSelectedPersonFilms: (films) => set({ selectedPersonFilms: films }),
   handleStarAPerson: (personURL, isStarred) => {
@@ -64,8 +57,13 @@ const usePeopleStore = create<IUsePeopleStore>((set, get) => ({
       return person;
     });
 
+    const filteredByStarred = listWithUpdatedPerson.filter(
+      (person) => person.isStarred
+    );
+
     set({
       peopleList: listWithUpdatedPerson,
+      starredList: filteredByStarred,
       selectedPerson: { ...selectedPerson, isStarred },
     });
   },

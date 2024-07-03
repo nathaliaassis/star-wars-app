@@ -1,11 +1,25 @@
-import { View, Text } from "react-native";
+import { FlatList } from "react-native";
 import React from "react";
-import { Container } from "./starreds.styles";
+import { Container, Header } from "./starreds.styles";
+import { usePeopleStore } from "../../providers/usePeopleStore";
+import PersonCard from "../../components/personCard/personCard.component";
 
-const Starreds = () => {
+const Starreds = ({ navigation }) => {
+  const { starredList } = usePeopleStore();
+
   return (
     <Container>
-      <Text>Starreds</Text>
+      <Header>My Favorites</Header>
+      <FlatList
+        data={starredList}
+        renderItem={({ item }) => (
+          <PersonCard
+            person={item}
+            onPress={() => navigation.navigate("Details", { url: item.url })}
+          />
+        )}
+        keyExtractor={(item) => item.url}
+      />
     </Container>
   );
 };

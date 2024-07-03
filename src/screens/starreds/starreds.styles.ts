@@ -2,8 +2,15 @@ import { StatusBar } from "react-native";
 import styled from "styled-components/native";
 
 const Container = styled.SafeAreaView`
-  margin-top: ${StatusBar.currentHeight ? StatusBar.currentHeight + "px" : 0};
-  padding: 8px 24px 24px;
+  margin-top: ${StatusBar.currentHeight && StatusBar.currentHeight + 16 + "px"};
+  padding: 8px 24px 70px;
 `;
 
-export { Container };
+const Header = styled.Text`
+  font-size: 32px;
+  font-weight: 600;
+  align-self: center;
+  margin-bottom: 16px;
+`;
+
+export { Container, Header };
