@@ -3,8 +3,9 @@ import React from "react";
 import { Container, Header } from "./starreds.styles";
 import { usePeopleStore } from "../../providers/usePeopleStore";
 import PersonCard from "../../components/personCard/personCard.component";
+import { StarredsScreenProps } from "../../types";
 
-const Starreds = ({ navigation }) => {
+const Starreds: React.FC<StarredsScreenProps> = ({ navigation }) => {
   const { starredList } = usePeopleStore();
 
   return (

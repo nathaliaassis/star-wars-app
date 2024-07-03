@@ -2,7 +2,7 @@ import { Container, Logo } from "./people.styles";
 import { useCallback, useEffect, useState } from "react";
 import { getPeople } from "../../services/people/people.service";
 import { FlatList } from "react-native";
-import { RootTabParamList } from "../../types";
+import { PeopleScreenProps, RootTabParamList } from "../../types";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 import logoImg from "../../assets/logo_black.png";
 import { api } from "../../config/api";
@@ -10,11 +10,7 @@ import { usePeopleStore } from "../../providers/usePeopleStore";
 import PersonCard from "../../components/personCard/personCard.component";
 import Loading from "../../components/loading/loading.component";
 
-interface IPeopleScreen {
-  navigation: NativeStackNavigationProp<RootTabParamList>;
-}
-
-const People: React.FC<IPeopleScreen> = ({ navigation }) => {
+const People: React.FC<PeopleScreenProps> = ({ navigation }) => {
   const { setPeopleList, peopleList } = usePeopleStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);

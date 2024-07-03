@@ -4,8 +4,9 @@ import { FontAwesome6 as Icon } from "@expo/vector-icons";
 import Starreds from "./src/screens/starreds/starreds.screen";
 import Details from "./src/screens/details/details.screen";
 import People from "./src/screens/people/people.screen";
+import { RootTabParamList } from "./src/types";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const App = () => {
   return (

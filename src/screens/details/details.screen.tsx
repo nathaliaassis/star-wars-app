@@ -1,21 +1,18 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Container, Header, Title } from "./details.styles";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { RootTabParamList } from "../../types";
+import { DetailsScreenProps, RootTabParamList } from "../../types";
 import { getPeopleById } from "../../services/people/people.service";
 import { FontAwesome6 as Icon } from "@expo/vector-icons";
 import { getFilmById } from "../../services/film/film.service";
 import Tabs from "./tabs/tabs.component";
 import { TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { usePeopleStore } from "../../providers/usePeopleStore";
 import Loading from "../../components/loading/loading.component";
 
-type Props = BottomTabScreenProps<RootTabParamList, "Details">;
-
-const Details: React.FC<Props> = ({ route }) => {
+const Details: React.FC<DetailsScreenProps> = ({ route, navigation }) => {
   const { url } = route.params;
-  const { goBack } = useNavigation();
+
   const {
     setSelectedPerson,
     selectedPerson,
@@ -72,7 +69,7 @@ const Details: React.FC<Props> = ({ route }) => {
   return (
     <Container>
       <Header>
-        <TouchableOpacity onPress={goBack}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon name="chevron-left" size={24} color="#000000" />
         </TouchableOpacity>
 
