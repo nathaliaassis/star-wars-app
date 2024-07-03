@@ -15,7 +15,7 @@ Possibilitar ao usuário tocar em um item da lista realizando as seguintes açõ
 Tecnologias Desejáveis (nice to have)
 [x] Uso do Zustand
 [x] Uso Typescript
-[] Teste unitários
+[x] Teste unitários
 [x] Hooks
 
 Premissas
